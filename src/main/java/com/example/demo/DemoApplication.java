@@ -16,21 +16,25 @@ import org.springframework.integration.http.config.EnableIntegrationGraphControl
 import org.springframework.integration.jms.JmsDestinationPollingSource;
 import org.springframework.integration.jms.JmsSendingMessageHandler;
 import org.springframework.integration.router.ExpressionEvaluatingRouter;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+import javax.sql.DataSource;
+
 @SpringBootApplication
-@Configuration
 @EnableIntegration
 @IntegrationComponentScan("com.example.demo")
 @EnableIntegrationGraphController(allowedOrigins = "http://localhost:8082")
-@ImportResource("classpath:META-INF/spring/integration/orderProcess.xml")
+@ImportResource({"classpath:META-INF/spring/integration/orderProcess.xml", "classpath:hsql_cfg.xml"})
 public class DemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
+
 
 //	@ServiceActivator(inputChannel="requestChannel", poller = @Poller(fixedRate = "30000"))
 //	@Bean
